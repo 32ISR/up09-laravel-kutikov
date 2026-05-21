@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             // name -> строка
             // color -> строка, лимит 7 символов
+            // стандартное значение '#6366f1'
             // user_id -> айдишка юзера, привязанная к другой таблице
             $table->timestamps();
         });
