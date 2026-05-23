@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,9 +13,12 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             // name -> строка
+            $table->string('name');
             // color -> строка, лимит 7 символов
+            $table->string('color', length: 7)->default('#6366f1');
             // стандартное значение '#6366f1'
             // user_id -> айдишка юзера, привязанная к другой таблице
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
