@@ -34,4 +34,14 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }
