@@ -15,11 +15,17 @@ class Task extends Model
         'category_id',
         'user_id'
     ];
+
+    protected $casts = [
+        "due_date" => "date"
+    ];
+
     public function categories()
     {
         return $this->belongsTo(Category::class);
     }
 
+    // this is a test
     public function user()
     {
         return $this->belongsTo(User::class);

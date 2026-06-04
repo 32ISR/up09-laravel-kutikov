@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,7 @@ class TaskController extends Controller
         $user = Auth::user();
         $tasks = $user
             ->tasks()
-            ->with('category')
+            ->with('categories')
             ->latest()
             ->paginate(10);
 
@@ -36,15 +37,6 @@ class TaskController extends Controller
         $user = Auth::user();
         $user->tasks()->create($data);
         return redirect()->route('tasks.index')->with('success', 'Задача создана');
-        // валидируйте
-        // title - обязательное, строка, максимум 255 символов
-        // description - необязательное, строка
-        // status - обязательное, присутствует в enum 'pending','in_progress', 'done
-        // 'string|in:pending,in_progress,...'
-        // priority - обязательное, присутствует в enum 'low, medium, high'
-        // due_date - необязательное, дата, допустимое значение - сегодня и позже
-        // after_or_equal:today
-        // category_id - необязательное, существует id в таблице категорий
     }
 
     public function create()
@@ -64,8 +56,10 @@ class TaskController extends Controller
 
     }
 
-    public function destroy()
+    public function destroy(Task $task)
     {
-
+        // asd
+        $task->delete();
+        return redirect()->route('tasks.index')->with('success', 'Задача успешно удалена');
     }
 }
